@@ -26,7 +26,7 @@ class BotHandler:
         if len(get_result) > 0:
             last_update = get_result[-1]
         else:
-            last_update = get_result[len(get_result)]
+            last_update = None
 
         return last_update
 greet_bot = BotHandler(token)
@@ -39,6 +39,9 @@ def main():
     hour = now.hour
 
     while True:
+        if last_update is None:
+            continue
+            
         greet_bot.getupdates(new_offset)
 
         last_update = greet_bot.get_last_update()

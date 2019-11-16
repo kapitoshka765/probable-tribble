@@ -1,0 +1,1 @@
+worker: python botbet3.py
