@@ -1,6 +1,7 @@
 import requests
 import datetime
 
+
 class BotHandler:
 
     def __init__(self, token):
@@ -11,7 +12,7 @@ class BotHandler:
         method = 'getUpdates'
         params = {'timeout': timeout, 'offset': offset}
         resp = requests.get(self.api_url + method, params)
-        result_json=resp.json()['result']
+        result_json = resp.json()['result']
         return result_json
 
     def send_message(self, chat_id, text):
@@ -29,9 +30,12 @@ class BotHandler:
             last_update = get_result[len(get_result)]
 
         return last_update
-greet_bot = BotHandler(771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo)
+
+token = 771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo
+greet_bot = BotHandler()
 greetings = ('здравстуй', 'привет', 'ку', 'здорово')
 now = datetime.datetime.now()
+
 
 def main():
     new_offset = None
@@ -59,6 +63,7 @@ def main():
             today += 1
 
         new_offset = last_update_id + 1
+
 
 if __name__ == '__main__':
     try:
