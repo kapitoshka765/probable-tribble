@@ -1,1 +1,1 @@
-worker: python botbet3.py
+web: python botbet3.py
