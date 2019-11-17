@@ -1,5 +1,10 @@
 import requests
 import datetime
+import telebot
+from telebot import types
+
+token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
+
 
 class BotHandler:
 
@@ -30,9 +35,17 @@ class BotHandler:
 
         return last_update
 
-token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
+
+def keyboard():
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+    button1 = types.KeyboardButton('Make minimum bet')
+    markup.add(button1)
+    return markup
+
+
 greet_bot = BotHandler(token)
-greetings = ('здравстуй', 'привет', 'ку', 'здорово')
+greetings = ('hello', 'privet', 'ku', 'qq')
+bet = 'Make minimum bet'
 now = datetime.datetime.now()
 
 
@@ -54,14 +67,20 @@ def main():
         last_chat_name = last_update['message']['chat']['first_name']
 
         if last_chat_text.lower() in greetings and today == now.day and 6 <= hour < 12:
-            greet_bot.send_message(last_chat_id, 'Доброе утро, {}'.format(last_chat_name))
+            greet_bot.send_message(last_chat_id, 'Good morning, {}'.format(last_chat_name))
             today += 1
+            reply_markup = keyboard()
         elif last_chat_text.lower in greetings and today == now.day and 12 <= hour < 17:
-            greet_bot.send_message(last_chat_id, 'Добрый день, {}'.format(last_chat_name))
+            greet_bot.send_message(last_chat_id, 'Good day, {}'.format(last_chat_name))
             today += 1
+            reply_markup = keyboard()
         elif last_chat_text.lower() in greetings and today == now.day and 17 <= hour < 23:
-            greet_bot.send_message(last_chat_id, 'Добрый вечер, {}'.format(last_chat_name))
+            greet_bot.send_message(last_chat_id, 'Good evening, {}'.format(last_chat_name))
             today += 1
+            reply_markup = keyboard()
+        elif last_chat_text.lower() in bet:
+            greet_bot.send_message(last_chat_id, 'Minimum bet placed, {}'.format(last_chat_name))
+            reply_markup = keyboard()
 
         new_offset = last_update_id + 1
 
