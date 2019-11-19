@@ -28,7 +28,7 @@ def send_anytext(message):
         worth += int(message.text)
         bot.send_message(chat_id, 'Your bet was placed', reply_markup=keyboard())
 
-def isint(s)
+def isint(s):
     try:
         int(s)
         return True
