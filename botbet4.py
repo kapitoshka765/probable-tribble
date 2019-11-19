@@ -22,14 +22,15 @@ def send_anytext(message):
         worth += 20
     if message.text == 'Make bet':
         text = 'How much do you want to bet?'
-        bot.send_message(chat_id, text, reply_markup=force)
+        bot.send_message(chat_id, text, reply_markup=force())
         worth += int(message.text)
 
 
 def keyboard():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     button1 = types.KeyboardButton('Make min bet')
-    markup.add(button1)
+    button2 = types.KeyboardButton('Make bet')
+    markup.add(button1, button2)
     return markup
 
 def force():
