@@ -1,6 +1,7 @@
 import telebot
 from telebot import types
 
+worth = 20
 token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
 
@@ -15,8 +16,9 @@ def send_welcome(message):
 def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'Make min bet':
-        text = 'Minimum bet placed'
+        text = 'Minimum bet placed' + '<b>' + 'Current worth is' + worth
         bot.send_message(chat_id, text, reply_markup=keyboard())
+        worth += 20
 
 def keyboard():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
