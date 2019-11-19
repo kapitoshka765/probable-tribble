@@ -24,8 +24,16 @@ def send_anytext(message):
         text = 'How much do you want to bet?'
         force_markup = types.ForceReply()
         bot.send_message(chat_id, 'Choose your bet', reply_markup=force_markup)
+    elif isint(message.text):
         worth += int(message.text)
+        bot.send_message(chat_id, 'Your bet was placed', reply_markup=keyboard())
 
+def isint(s)
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 def keyboard():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
