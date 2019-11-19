@@ -29,9 +29,12 @@ def send_anytext(message, ):
     elif isint(message.text):
         if int(message.text) > 20:
             worth += int(message.text)
-            bot.send_message(chat_id, 'Ваша ставка была поставлена', reply_markup=keyboard())
+            textisint = 'Ваша ставка была поставлена' + ' ' + str(worth)
+            bot.send_message(chat_id, textisint, reply_markup=keyboard())
         else:
             bot.send_message(chat_id, 'Ваша ставка меньше минимальной, попробуйте снова', reply_markup=keyboard())
+    elif message.text == 'Текущая стоимость':
+        bot.send_message(chat_id, str(worth), reply_markup=keyboard())
 
 
 worth = 0
@@ -50,7 +53,8 @@ def keyboard():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     button1 = types.KeyboardButton('Минимальная ставка')
     button2 = types.KeyboardButton('Ставка')
-    markup.add(button1, button2)
+    button3 = types.KeyboardButton('Текущая стоимость')
+    markup.add(button1, button2, button3)
     return markup
 
 
