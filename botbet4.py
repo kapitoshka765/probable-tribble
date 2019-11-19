@@ -8,7 +8,7 @@ bot = telebot.TeleBot(token)
 def send_welcome(message):
     bot.send_message(
         message.chat.id,
-        '''Мы рады, что вы с нами.''',
+        'Мы рады, что вы с нами.',
         reply_markup=keyboard())
 
 @bot.message_handler(content_types=['text'])
@@ -20,9 +20,10 @@ def send_anytext(message):
                'Current worth is' + ' ' + str(worth)
         bot.send_message(chat_id, text, reply_markup=keyboard())
         worth += 20
-    if message.text == 'Make bet':
+    elif message.text == 'Make bet':
         text = 'How much do you want to bet?'
-        bot.send_message(chat_id, text, reply_markup=force())
+        force_markup = types.ForceReply()
+        bot.send_message(chat_id, 'Choose your bet', reply_markup=force_markup)
         worth += int(message.text)
 
 
@@ -33,9 +34,6 @@ def keyboard():
     markup.add(button1, button2)
     return markup
 
-def force():
-    force_markup = types.ForceReply()
-    bot.send_message(chat_id, 'Choose your bet', reply_markup=force_markup)
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
