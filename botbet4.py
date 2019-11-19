@@ -16,7 +16,8 @@ def send_anytext(message):
     chat_id = message.chat.id
     worth = 20
     if message.text == 'Make min bet':
-        text = 'Minimum bet placed' + '<b>' + 'Current worth is' + ' ' + str(worth)
+        text = 'Minimum bet placed' \
+               'Current worth is' + ' ' + str(worth)
         bot.send_message(chat_id, text, reply_markup=keyboard())
         worth += 20
 
