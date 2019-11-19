@@ -14,7 +14,7 @@ def send_welcome(message):
 
 
 @bot.message_handler(content_types=['text'])
-def send_anytext(message,):
+def send_anytext(message, ):
     global worth
     chat_id = message.chat.id
     if message.text == 'Make min bet':
@@ -27,12 +27,16 @@ def send_anytext(message,):
         force_markup = types.ForceReply()
         bot.send_message(chat_id, 'Choose your bet', reply_markup=force_markup)
     elif isint(message.text):
-        worth += int(message.text)
-        bot.send_message(chat_id, 'Your bet was placed', reply_markup=keyboard())
+        if int(message.text) > 20:
+            worth += int(message.text)
+            bot.send_message(chat_id, 'Your bet was placed', reply_markup=keyboard())
+        else:
+            bot.send_message(chat_id, 'Your bet is smaller, then minimum, try again', reply_markup=keyboard())
 
 
 worth = 0
-
+if worth > 1000:
+    worth = 0
 
 def isint(s):
     try:
