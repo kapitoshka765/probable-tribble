@@ -19,8 +19,7 @@ def send_anytext(message, ):
     chat_id = message.chat.id
     if message.text == 'Минимальная ставка':
         worth += 20
-        text = 'Минимальная ставка поставлена' \
-               'На данный момент стоимость' + ' ' + str(worth)
+        text = 'Минимальная ставка поставлена.' + ' ' + 'На данный момент текущая стоимость' + ' ' + str(worth)
         bot.send_message(chat_id, text, reply_markup=keyboard())
     elif message.text == 'Ставка':
         text = 'Сколько вы хотите поставить??'
@@ -29,7 +28,7 @@ def send_anytext(message, ):
     elif isint(message.text):
         if int(message.text) > 20:
             worth += int(message.text)
-            textisint = 'Ваша ставка была поставлена' + ' ' + str(worth)
+            textisint = 'Ваша ставка была поставлена.' + 'Текущая стоимость'+ ' ' + str(worth)
             bot.send_message(chat_id, textisint, reply_markup=keyboard())
         else:
             bot.send_message(chat_id, 'Ваша ставка меньше минимальной, попробуйте снова', reply_markup=keyboard())
