@@ -9,7 +9,7 @@ bot = telebot.TeleBot(token)
 def send_welcome(message):
     bot.send_message(
         message.chat.id,
-        'Мы рады, что вы с нами.',
+        'Мы рады, что вы с нами. Минимальная ставка составляет 20',
         reply_markup=keyboard())
 
 
@@ -17,21 +17,21 @@ def send_welcome(message):
 def send_anytext(message, ):
     global worth
     chat_id = message.chat.id
-    if message.text == 'Make min bet':
-        text = 'Minimum bet placed' \
-               'Current worth is' + ' ' + str(worth)
-        bot.send_message(chat_id, text, reply_markup=keyboard())
+    if message.text == 'Минимальная ставка':
         worth += 20
-    elif message.text == 'Make bet':
-        text = 'How much do you want to bet?'
+        text = 'Минимальная ставка поставлена' \
+               'На данный момент стоимость' + ' ' + str(worth)
+        bot.send_message(chat_id, text, reply_markup=keyboard())
+    elif message.text == 'Ставка':
+        text = 'Сколько вы хотите поставить??'
         force_markup = types.ForceReply()
-        bot.send_message(chat_id, 'Choose your bet', reply_markup=force_markup)
+        bot.send_message(chat_id, 'Выберите вашу ставку', reply_markup=force_markup)
     elif isint(message.text):
         if int(message.text) > 20:
             worth += int(message.text)
-            bot.send_message(chat_id, 'Your bet was placed', reply_markup=keyboard())
+            bot.send_message(chat_id, 'Ваша ставка была поставлена', reply_markup=keyboard())
         else:
-            bot.send_message(chat_id, 'Your bet is smaller, then minimum, try again', reply_markup=keyboard())
+            bot.send_message(chat_id, 'Ваша ставка меньше минимальной, попробуйте снова', reply_markup=keyboard())
 
 
 worth = 0
@@ -48,8 +48,8 @@ def isint(s):
 
 def keyboard():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-    button1 = types.KeyboardButton('Make min bet')
-    button2 = types.KeyboardButton('Make bet')
+    button1 = types.KeyboardButton('Минимальная ставка')
+    button2 = types.KeyboardButton('Ставка')
     markup.add(button1, button2)
     return markup
 
