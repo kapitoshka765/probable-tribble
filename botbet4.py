@@ -35,7 +35,7 @@ def keyboard():
 
 def force():
     force_markup = types.ForceReply()
-    tb.send_message(chat_id, 'Choose your bet', reply_markup=force_markup)
+    bot.send_message(chat_id, 'Choose your bet', reply_markup=force_markup)
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
