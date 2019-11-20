@@ -26,19 +26,20 @@ def send_anytext(message, ):
         force_markup = types.ForceReply()
         bot.send_message(chat_id, 'Выберите вашу ставку', reply_markup=force_markup)
     elif isint(message.text):
-        if int(message.text) > 20:
-            worth += int(message.text)
+        if int(message.text) > 20 and int(message.text) > worth:
+            worth = int(message.text)
             textisint = 'Ваша ставка была поставлена.' + 'Текущая стоимость'+ ' ' + str(worth)
             bot.send_message(chat_id, textisint, reply_markup=keyboard())
         else:
             bot.send_message(chat_id, 'Ваша ставка меньше минимальной, попробуйте снова', reply_markup=keyboard())
     elif message.text == 'Текущая стоимость':
         bot.send_message(chat_id, str(worth), reply_markup=keyboard())
+    elif message.text == 'krism zero':
+        worth = 0
+        bot.send_message(chat_id, 'Completed', reply_markup=keyboard())
 
 
 worth = 0
-if worth > 1000:
-    worth = 0
 
 def isint(s):
     try:
