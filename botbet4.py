@@ -6,14 +6,6 @@ token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
 
 
-def auc_time():
-    global token
-    hour = 60
-    ok = 1
-    time.sleep(hour)
-    ok = 0
-
-
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.send_message(
@@ -29,7 +21,9 @@ def send_anytext(message):
     chat_id = message.chat.id
     ok = 0
     if message.text == 'krism start':
-        auc_time()
+        ok = 1
+        time.sleep(120)
+        ok = 0
     elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
         text = 'Минимальная ставка поставлена.' + ' ' + 'На данный момент текущая стоимость' + ' ' + str(worth)
