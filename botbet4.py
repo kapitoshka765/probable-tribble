@@ -6,6 +6,19 @@ token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
 
 
+def start(name, value, url, games, pages, photo):
+    return 'Номер лота:' + name + 'Стоимость предметов на первой странице:' + value + 'Ссылка на аккаунт:' + url + \
+           'Игры на аккаунте:' + games + 'Страниц инвентаря:' + pages + photo
+
+
+@bot.message_handler(content_types=['text'])
+def add_lot(message):
+    if str(message.text[:5]) == '/add':
+        lot_info = str(message.text[5:])
+        lot_text = start(lot_info)
+        bot.send_message(message.chat.id, 'Completed')
+
+
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.send_message(
@@ -20,16 +33,16 @@ def send_anytext(message):
     global token
     global ok
     chat_id = message.chat.id
-    if message.text == 'krism start':
+    if add_lot:
         ok = 1
-    if message.text == 'krism end':
+        bot.send_message(chat_id, lot_text)
+    elif message.text == 'krism end':
         ok = 0
     elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
         text = 'Минимальная ставка поставлена.' + ' ' + 'На данный момент текущая стоимость' + ' ' + str(worth)
         bot.send_message(chat_id, text, reply_markup=keyboard())
     elif message.text == 'Ставка' and ok == 1:
-        text = 'Сколько вы хотите поставить??'
         force_markup = types.ForceReply()
         bot.send_message(chat_id, 'Выберите вашу ставку', reply_markup=force_markup)
     elif isint(message.text) and ok == 1:
