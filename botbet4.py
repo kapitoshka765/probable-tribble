@@ -18,14 +18,12 @@ def send_welcome(message):
 def send_anytext(message):
     global worth
     global token
+    global ok
     chat_id = message.chat.id
-    ok = 0
     if message.text == 'krism start':
         ok = 1
-        bot.send_message(chat_id, 'Completed', reply_markup=keyboard())
-    elif message.text == 'krism end':
+    if message.text == 'krism end':
         ok = 0
-        bot.send_message(chat_id, 'Completed', reply_markup=keyboard())
     elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
         text = 'Минимальная ставка поставлена.' + ' ' + 'На данный момент текущая стоимость' + ' ' + str(worth)
@@ -49,6 +47,7 @@ def send_anytext(message):
 
 
 worth = 0
+ok = 0
 
 
 def isint(s):
