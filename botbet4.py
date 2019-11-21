@@ -1,8 +1,17 @@
 import telebot
+import time
 from telebot import types
 
 token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
+
+
+def auc_time():
+    global token
+    hour = 60
+    ok = 1
+    time.sleep(hour)
+    ok = 0
 
 
 @bot.message_handler(commands=['start'])
@@ -14,32 +23,36 @@ def send_welcome(message):
 
 
 @bot.message_handler(content_types=['text'])
-def send_anytext(message, ):
+def send_anytext(message):
     global worth
+    global token
     chat_id = message.chat.id
-    if message.text == 'Минимальная ставка':
+    if message.text == 'krism start':
+        auc_time()
+    elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
         text = 'Минимальная ставка поставлена.' + ' ' + 'На данный момент текущая стоимость' + ' ' + str(worth)
         bot.send_message(chat_id, text, reply_markup=keyboard())
-    elif message.text == 'Ставка':
+    elif message.text == 'Ставка' and ok == 1:
         text = 'Сколько вы хотите поставить??'
         force_markup = types.ForceReply()
         bot.send_message(chat_id, 'Выберите вашу ставку', reply_markup=force_markup)
-    elif isint(message.text):
+    elif isint(message.text) and ok == 1:
         if int(message.text) > 20 and int(message.text) > worth:
             worth = int(message.text)
-            textisint = 'Ваша ставка была поставлена.' + 'Текущая стоимость'+ ' ' + str(worth)
+            textisint = 'Ваша ставка была поставлена.' + 'Текущая стоимость' + ' ' + str(worth)
             bot.send_message(chat_id, textisint, reply_markup=keyboard())
         else:
             bot.send_message(chat_id, 'Ваша ставка меньше минимальной, попробуйте снова', reply_markup=keyboard())
-    elif message.text == 'Текущая стоимость':
+    elif message.text == 'Текущая стоимость' and ok == 1:
         bot.send_message(chat_id, str(worth), reply_markup=keyboard())
-    elif message.text == 'krism zero':
+    elif message.text == 'krism zero' and ok == 1:
         worth = 0
         bot.send_message(chat_id, 'Completed', reply_markup=keyboard())
 
 
 worth = 0
+
 
 def isint(s):
     try:
