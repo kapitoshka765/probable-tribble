@@ -21,11 +21,9 @@ def send_anytext(message):
     chat_id = message.chat.id
     ok = 0
     if message.text == 'krism start':
-        global ok
         ok = 1
         bot.send_message(chat_id, 'Completed', reply_markup=keyboard())
     elif message.text == 'krism end':
-        global ok
         ok = 0
         bot.send_message(chat_id, 'Completed', reply_markup=keyboard())
     elif message.text == 'Минимальная ставка' and ok == 1:
