@@ -15,6 +15,7 @@ def start(name, value, url, games, pages, photo):
 def add_lot(message):
     global lot_text
     lot_info = str(message.text[5:])
+    print(lot_info)
     lot_info = lot_info.split(', ')
     lot_text = start(*lot_info)
     bot.send_message(message.chat.id, 'Completed')
