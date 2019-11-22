@@ -13,10 +13,11 @@ def start(name, value, url, games, pages, photo):
 
 @bot.message_handler(content_types=['text'])
 def add_lot(message):
-    if str(message.text[:5]) == '/add':
-        lot_info = str(message.text[5:])
-        lot_text = start(lot_info)
-        bot.send_message(message.chat.id, 'Completed')
+    global lot_text
+    lot_info = str(message.text[5:])
+    lot_info = lot_info.split(', ')
+    lot_text = start(*lot_info)
+    bot.send_message(message.chat.id, 'Completed')
 
 
 @bot.message_handler(commands=['start'])
@@ -32,8 +33,9 @@ def send_anytext(message):
     global worth
     global token
     global ok
+    global lot_text
     chat_id = message.chat.id
-    if add_lot:
+    if str(message.text[:5]) == '/add':
         ok = 1
         bot.send_message(chat_id, lot_text)
     elif message.text == 'krism end':
@@ -61,6 +63,7 @@ def send_anytext(message):
 
 worth = 0
 ok = 0
+lot_text = 0
 
 
 def isint(s):
