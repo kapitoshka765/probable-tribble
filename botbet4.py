@@ -35,7 +35,7 @@ def send_anytext(message):
     global lot_text
     chat_id = message.chat.id
     if message.text[:4] == '/add':
-        add_lot()
+        add_lot(message)
         ok = 1
         bot.send_message(chat_id, lot_text)
     elif message.text == 'krism end':
