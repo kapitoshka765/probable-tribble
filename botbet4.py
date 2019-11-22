@@ -11,7 +11,6 @@ def start(name, value, url, games, pages, photo):
            'Игры на аккаунте:' + games + 'Страниц инвентаря:' + pages + photo
 
 
-@bot.message_handler(content_types=['text'])
 def add_lot(message):
     global lot_text
     lot_info = str(message.text[5:])
