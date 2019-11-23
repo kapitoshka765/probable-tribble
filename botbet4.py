@@ -13,10 +13,6 @@ def start(name, value, url, games, pages, photo):
            'Игры на аккаунте:' + games + 'Страниц инвентаря:' + pages + photo
 
 
-def get_ids():
-    global db
-    global ids
-    ids = db.split('|')
 
 
 def add_lot(message):
@@ -30,7 +26,7 @@ def add_lot(message):
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     global db
-    db += '|' + str(message.chat.id)
+    db = db + '|' + str(message.chat.id)
     bot.send_message(
         message.chat.id,
         'Мы рады, что вы с нами. Минимальная ставка составляет 20',
@@ -49,7 +45,7 @@ def send_anytext(message):
     if message.text[:4] == '/add':
         add_lot(message)
         ok = 1
-        get_ids()
+        ids = db.split('|')
         for x in len(ids):
             bot.send_message(ids[x], lot_text)
     elif message.text == 'krism end':
