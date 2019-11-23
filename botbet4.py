@@ -5,7 +5,7 @@ from telebot import types
 token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
 db = 0
-ids = 0
+ids = ''
 
 
 def start(name, value, url, games, pages, photo):
