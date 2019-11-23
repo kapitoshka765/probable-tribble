@@ -46,7 +46,7 @@ def send_anytext(message):
         add_lot(message)
         ok = 1
         ids = db.split('|')
-        for x in len(ids):
+        for x in range(len(ids)):
             bot.send_message(ids[x], lot_text)
     elif message.text == 'krism end':
         ok = 0
