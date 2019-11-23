@@ -4,11 +4,19 @@ from telebot import types
 
 token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
+db = 0
+ids = 0
 
 
 def start(name, value, url, games, pages, photo):
     return 'Номер лота:' + name + 'Стоимость предметов на первой странице:' + value + 'Ссылка на аккаунт:' + url + \
            'Игры на аккаунте:' + games + 'Страниц инвентаря:' + pages + photo
+
+
+def get_ids():
+    global db
+    global ids
+    ids = db.split('|')
 
 
 def add_lot(message):
@@ -21,6 +29,8 @@ def add_lot(message):
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    global db
+    db += '|' + str(message.chat.id)
     bot.send_message(
         message.chat.id,
         'Мы рады, что вы с нами. Минимальная ставка составляет 20',
@@ -33,13 +43,19 @@ def send_anytext(message):
     global token
     global ok
     global lot_text
+    global db
+    global ids
     chat_id = message.chat.id
     if message.text[:4] == '/add':
         add_lot(message)
         ok = 1
-        bot.send_message(chat_id, lot_text)
+        get_ids()
+        for x in len(ids):
+            bot.send_message(ids[x], lot_text)
     elif message.text == 'krism end':
         ok = 0
+        bot.send_message(chat_id, 'Completed')
+        worth = 0
     elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
         text = 'Минимальная ставка поставлена.' + ' ' + 'На данный момент текущая стоимость' + ' ' + str(worth)
