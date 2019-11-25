@@ -97,7 +97,7 @@ def isint(s):
 
 
 def keyboard():
-    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=2)
     button1 = types.KeyboardButton('Минимальная ставка')
     button2 = types.KeyboardButton('Ставка')
     button3 = types.KeyboardButton('Текущая стоимость')
