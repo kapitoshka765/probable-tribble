@@ -11,8 +11,9 @@ lot_info = ''
 
 
 def start(name, value, url, games, pages, photo):
-    return 'Номер лота:' + name + ' ' + 'Стоимость предметов на первой странице:' + value + ' ' + 'Ссылка на аккаунт:' \
-           + url + ' ' + 'Игры на аккаунте:' + games + ' ' + 'Страниц инвентаря:' + pages + photo
+    return 'Номер лота:' + name + ' ' + 'Стоимость предметов на первой странице:' + value + 'руб. ' \
+           + 'Ссылка на аккаунт:' + url + ' ' + 'Игры на аккаунте:' + games + ' ' + 'Страниц инвентаря:' + pages \
+           + photo
 
 
 
@@ -100,7 +101,8 @@ def keyboard():
     button1 = types.KeyboardButton('Минимальная ставка')
     button2 = types.KeyboardButton('Ставка')
     button3 = types.KeyboardButton('Текущая стоимость')
-    markup.add(button1, button2, button3)
+    markup.row(button1, button2)
+    markup.row(button3)
     return markup
 
 
