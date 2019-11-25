@@ -10,8 +10,8 @@ win = 0
 
 
 def start(name, value, url, games, pages, photo):
-    return 'Номер лота:' + name + 'Стоимость предметов на первой странице:' + value + 'Ссылка на аккаунт:' + url + \
-           'Игры на аккаунте:' + games + 'Страниц инвентаря:' + pages + photo
+    return 'Номер лота:' + name + ' ' + 'Стоимость предметов на первой странице:' + value + ' ' + 'Ссылка на аккаунт:' \
+           + url + ' ' + 'Игры на аккаунте:' + games + ' ' + 'Страниц инвентаря:' + pages + photo
 
 
 
@@ -54,7 +54,7 @@ def send_anytext(message):
         ok = 0
         bot.send_message(chat_id, 'Completed')
         bot.send_message(win, 'Вы выйграли этот аукцион под номером' + str(lot_info[:1]) + ', отправьте сумму'
-                         + str(worth) +'на Qiwi кошелёк +79058638358')
+                         + str(worth) + ' ' +'на Qiwi кошелёк +79058638358')
         worth = 0
     elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
