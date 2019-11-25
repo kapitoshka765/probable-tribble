@@ -6,6 +6,7 @@ token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
 db = ''
 ids = ''
+win = 0
 
 
 def start(name, value, url, games, pages, photo):
@@ -41,6 +42,7 @@ def send_anytext(message):
     global lot_text
     global db
     global ids
+    global win
     chat_id = message.chat.id
     if message.text[:4] == '/add':
         add_lot(message)
@@ -51,10 +53,13 @@ def send_anytext(message):
     elif message.text == 'krism end':
         ok = 0
         bot.send_message(chat_id, 'Completed')
+        bot.send_message(win, 'Вы выйграли этот аукцион под номером' + ids[:1] + ', отправьте сумму' + str(worth) +
+                         'на Qiwi кошелёк +79058638358')
         worth = 0
     elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
         text = 'Минимальная ставка поставлена.' + ' ' + 'На данный момент текущая стоимость' + ' ' + str(worth)
+        win = message.chat.id
         bot.send_message(chat_id, text, reply_markup=keyboard())
     elif message.text == 'Ставка' and ok == 1:
         force_markup = types.ForceReply()
@@ -63,6 +68,7 @@ def send_anytext(message):
         if int(message.text) > 20 and int(message.text) > worth:
             worth = int(message.text)
             textisint = 'Ваша ставка была поставлена.' + 'Текущая стоимость' + ' ' + str(worth)
+            win = message.chat.id
             bot.send_message(chat_id, textisint, reply_markup=keyboard())
         else:
             bot.send_message(chat_id, 'Ваша ставка меньше минимальной, попробуйте снова', reply_markup=keyboard())
