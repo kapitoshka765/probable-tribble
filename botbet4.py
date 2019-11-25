@@ -56,8 +56,8 @@ def send_anytext(message):
     elif message.text == 'krism end':
         ok = 0
         bot.send_message(chat_id, 'Completed')
-        bot.send_message(win, 'Вы выйграли этот аукцион под номером' + str(lot_info[:1]) + ', отправьте сумму'
-                         + str(worth) + ' ' +'на Qiwi кошелёк +79058638358')
+        bot.send_message(win, 'Вы выйграли этот аукцион под номером' + str(lot_info[:1]) + ', отправьте сумму '
+                         + str(worth) + 'руб. ' +'на Qiwi кошелёк +79058638358')
         worth = 0
     elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
@@ -70,7 +70,7 @@ def send_anytext(message):
     elif isint(message.text) and ok == 1:
         if int(message.text) > 20 and int(message.text) > worth:
             worth = int(message.text)
-            textisint = 'Ваша ставка была поставлена.' + 'Текущая стоимость' + ' ' + str(worth)
+            textisint = 'Ваша ставка была поставлена. ' + 'Текущая стоимость' + ' ' + str(worth)
             win = message.chat.id
             bot.send_message(chat_id, textisint, reply_markup=keyboard())
         else:
