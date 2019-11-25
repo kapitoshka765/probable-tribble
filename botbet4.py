@@ -7,6 +7,7 @@ bot = telebot.TeleBot(token)
 db = ''
 ids = ''
 win = 0
+lot_info = ''
 
 
 def start(name, value, url, games, pages, photo):
@@ -18,6 +19,7 @@ def start(name, value, url, games, pages, photo):
 
 def add_lot(message):
     global lot_text
+    global lot_info
     lot_info = str(message.text[5:])
     lot_info = lot_info.split(', ')
     lot_text = start(*lot_info)
@@ -43,6 +45,7 @@ def send_anytext(message):
     global db
     global ids
     global win
+    global lot_info
     chat_id = message.chat.id
     if message.text[:4] == '/add':
         add_lot(message)
