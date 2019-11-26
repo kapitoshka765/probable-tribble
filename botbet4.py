@@ -29,7 +29,8 @@ def command_pay(message):
                      photo_size=512,
                      is_flexible=False,
                      prices=prices,
-                     invoice_payload='steam-bot-auc',)
+                     invoice_payload='Pay',
+                     start_parameter='steam-auc-bot')
 
 
 @bot.message_handler(content_types=['succesful_payment'])
