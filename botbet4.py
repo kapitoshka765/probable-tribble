@@ -10,8 +10,8 @@ db = ''
 ids = ''
 win = 0
 lot_info = ''
-prices =[LabeledPrice(label='Pay', amount=worth)]
 worth = 0
+prices =[LabeledPrice(label='Pay', amount=worth)]
 ok = 0
 lot_text = 0
 
