@@ -11,7 +11,7 @@ ids = ''
 win = 0
 lot_info = ''
 worth = 0
-prices =[LabeledPrice(label='Pay', amount=100)]
+prices =[LabeledPrice(label='Pay', amount=14400)]
 ok = 0
 lot_text = 0
 
@@ -22,7 +22,7 @@ def command_pay(message):
     bot.send_invoice(message.chat.id, title='Paying your order',
                      description='Вам необходимо оплатить ваш заказ',
                      provider_token=provider_token,
-                     currency='rub',
+                     currency='RUB',
                      photo_url='https://sun9-19.userapi.com/c844720/v844720812/a82fe/pmX3mALvvW0.jpg',
                      photo_height=512,
                      photo_width=512,
