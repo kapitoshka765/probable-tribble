@@ -1,13 +1,48 @@
 import telebot
 import time
 from telebot import types
+from telebot.types import LabeledPrice, ShippingOption
 
+provider_token = '381764678:TEST:12609'
 token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
 db = ''
 ids = ''
 win = 0
 lot_info = ''
+prices =[LabeledPrice(label='Pay', amount=worth)]
+worth = 0
+ok = 0
+lot_text = 0
+
+
+@bot.message_handler(commands=['pay'])
+def command_pay(message):
+    bot.send_message(message.chat.id, 'Теперь вам необходимо оплатить ваш выйгрыш')
+    bot.send_invoice(message.chat.id, title='Paying your order',
+                     description='Вам необходимо оплатить ваш заказ',
+                     provider_token=provider_token,
+                     currency='rub',
+                     photo_url='https://sun9-19.userapi.com/c844720/v844720812/a82fe/pmX3mALvvW0.jpg',
+                     photo_height=512,
+                     photo_width=512,
+                     photo_size=512,
+                     is_flexible=False,
+                     prices=prices,
+                     start_parametr='steamauc_bot',
+                     invoice_payload='steam-bot-auc',
+                     need_email=True,
+                     need_phone_number=True,
+                     send_phone_numer_to_provider=True,
+                     send_email_to_provider=True)
+
+
+@bot.message_handler(content_types=['succesful_payment'])
+def got_payment(message):
+    global worth
+    bot.send_message(message.chat.id,
+                     'Оплата прошла успешно, в скором времени вам поступить предложение обмена в Steam')
+    worth = 0
 
 
 def start(name, value, url, games, pages, photo):
@@ -57,9 +92,8 @@ def send_anytext(message):
     elif message.text == 'krism end':
         ok = 0
         bot.send_message(chat_id, 'Completed')
-        bot.send_message(win, 'Вы выйграли этот аукцион под номером' + str(lot_info[:1]) + ', отправьте сумму '
-                         + str(worth) + 'руб. ' +'на Qiwi кошелёк +79058638358')
-        worth = 0
+        bot.send_message(win, 'Вы выйграли этот аукцион под номером' + str(lot_info[:1]) + '. Теперь вам необходимо \
+                         оплатить ваш заказ, для этого введите команду /pay'
     elif message.text == 'Минимальная ставка' and ok == 1:
         worth += 20
         text = 'Минимальная ставка поставлена.' + ' ' + 'На данный момент текущая стоимость' + ' ' + str(worth)
@@ -83,9 +117,7 @@ def send_anytext(message):
         bot.send_message(chat_id, 'Completed', reply_markup=keyboard())
 
 
-worth = 0
-ok = 0
-lot_text = 0
+
 
 
 def isint(s):
