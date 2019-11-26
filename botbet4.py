@@ -29,7 +29,6 @@ def command_pay(message):
                      photo_size=512,
                      is_flexible=False,
                      prices=prices,
-                     start_parametr='steamauc_bot',
                      invoice_payload='steam-bot-auc',
                      need_email=True,
                      need_phone_number=True,
