@@ -29,11 +29,7 @@ def command_pay(message):
                      photo_size=512,
                      is_flexible=False,
                      prices=prices,
-                     invoice_payload='steam-bot-auc',
-                     need_email=True,
-                     need_phone_number=True,
-                     send_phone_numer_to_provider=True,
-                     send_email_to_provider=True)
+                     invoice_payload='steam-bot-auc',)
 
 
 @bot.message_handler(content_types=['succesful_payment'])
