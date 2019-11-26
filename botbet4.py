@@ -11,7 +11,7 @@ ids = ''
 win = 0
 lot_info = ''
 worth = 0
-prices =[LabeledPrice(label='Pay', amount=worth)]
+prices =[LabeledPrice(label='Pay', amount=100)]
 ok = 0
 lot_text = 0
 
