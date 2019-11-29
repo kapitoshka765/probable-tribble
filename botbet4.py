@@ -1,10 +1,14 @@
 import telebot
 import time
+import requests
+import json
+import sqlite3
+import threading
 from telebot import types
 from telebot.types import LabeledPrice, ShippingOption
 
-provider_token = '381764678:TEST:12609'
-token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
+qiwi_acc = '89058638358'
+api_access_token = 'cdd16f5f5853c4be4381216d3878d25d'
 bot = telebot.TeleBot(token)
 db = ''
 ids = ''
@@ -15,22 +19,96 @@ prices =[LabeledPrice(label='Pay', amount=14400)]
 ok = 0
 lot_text = 0
 
+class QApi(object):
+    def __init__(self, token, qiwi_acc, delay=1):
+        self._s = requests.Session()
+        self._inv = {}
+        self._echo = None
+        self.thread = False
+        self.delay = delay
+
+    @property
+    def payments(self):
+        return self.get_payments()
+
+    def get_payments(self, rows=5):
+        args = {
+            'rows': rows,
+            'operation': 'IN'
+        }
+        response = self._s.get(
+            url='https://edge.qiwi.com/payment-history/v1/persons/%s/payments' % qiwi_acc,
+            params=args
+        )
+        data = response.json()
+        return data
+
+    def bill(self, price, comment=uuid64(), currency=643):
+        comment = str(comment)
+        self._inv[comment] = {
+            'price': price,
+            'currency': currency,
+            'success': False
+        }
+        return comment
+
+    def check(self, comment):
+        if comment not in self._inv :
+            return False
+        return inv[comment]['succes']
+
+    def _async_loop(self, target):
+        lock = threading.Lock()
+        while self.thread:
+            try:
+                lock.acquire()
+                target()
+            finally:
+                lock.release()
+
+    def parse_payments(self):
+        payments = self.payments
+        if 'errorCode' in payments:
+            time.sleep(10)
+            return
+        for payment in payments['data']:
+            if payment['comment'] in self._inv:
+                if payment['total']['amount'] >= self._inv[payment['comment']]['price'] and payment['total'] \
+                        ['currency'] == self._inv['comment']['currency'] and not self._inv[payment['comment']] \
+                        ['success']:
+                    self._inv[payment['comment']]['success'] = True
+                    if self._echo is not None:
+                        self.echo({
+                        payment['comment']: self._inv[payment['comment']]
+                    })
+        time.sleep(self.delay)
+
+    def start(self):
+        if not self.thread:
+            self.thread = True
+            th = threading.Thread(target=self._async_loop, args=(self._parse_payments,))
+            th.start()
+
+    def stop(self):
+        self.thread = False
+
+
 
 @bot.message_handler(commands=['pay'])
 def command_pay(message):
-    bot.send_message(message.chat.id, 'Теперь вам необходимо оплатить ваш выйгрыш')
-    bot.send_invoice(message.chat.id, title='Paying your order',
-                     description='Вам необходимо оплатить ваш заказ',
-                     provider_token=provider_token,
-                     currency='RUB',
-                     photo_url='https://sun9-19.userapi.com/c844720/v844720812/a82fe/pmX3mALvvW0.jpg',
-                     photo_height=512,
-                     photo_width=512,
-                     photo_size=512,
-                     is_flexible=False,
-                     prices=prices,
-                     invoice_payload='Pay',
-                     start_parameter='steam-auc-bot')
+    global api_access_token
+    global qiwi_acc
+    api = QApi(token=api_access_token, qiwi_acc=qiwi_acc)
+    price = worth
+    comment = api.bill(price)
+    bot.send_message(message.chat.id, "Переведите %i рублей на счет %s c комментарием %s" % (price, qiwi_acc, comment))
+    api.start()
+    while True:
+        if api.check(comment):
+            bot.send_message(message.chat.id, 'Платеж получен')
+            break
+        sleep(1)
+
 
 
 @bot.message_handler(content_types=['succesful_payment'])
