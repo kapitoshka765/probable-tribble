@@ -9,6 +9,7 @@ from telebot.types import LabeledPrice, ShippingOption
 
 qiwi_acc = '89058638358'
 api_access_token = 'cdd16f5f5853c4be4381216d3878d25d'
+token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
 bot = telebot.TeleBot(token)
 db = ''
 ids = ''
