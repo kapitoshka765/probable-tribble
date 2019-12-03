@@ -17,12 +17,14 @@ ids = ''
 win = 0
 lot_info = ''
 worth = 0
-prices =[LabeledPrice(label='Pay', amount=14400)]
+prices = [LabeledPrice(label='Pay', amount=14400)]
 ok = 0
 lot_text = 0
 
+
 class QApi(object):
-    def __init__(self, token, qiwi_acc, delay=1):
+
+    def __init__(self, api_access_token, qiwi_acc, delay=1):
         self._s = requests.Session()
         self._inv = {}
         self._echo = None
@@ -55,7 +57,7 @@ class QApi(object):
         return comment
 
     def check(self, comment):
-        if comment not in self._inv :
+        if comment not in self._inv:
             return False
         return inv[comment]['succes']
 
@@ -81,8 +83,8 @@ class QApi(object):
                     self._inv[payment['comment']]['success'] = True
                     if self._echo is not None:
                         self.echo({
-                        payment['comment']: self._inv[payment['comment']]
-                    })
+                            payment['comment']: self._inv[payment['comment']]
+                        })
         time.sleep(self.delay)
 
     def start(self):
@@ -95,12 +97,11 @@ class QApi(object):
         self.thread = False
 
 
-
 @bot.message_handler(commands=['pay'])
 def command_pay(message):
     global api_access_token
     global qiwi_acc
-    api = QApi(token=api_access_token, qiwi_acc=qiwi_acc)
+    api = QApi(api_access_token=api_access_token, qiwi_acc=qiwi_acc)
     price = worth
     comment = api.bill(price)
     bot.send_message(message.chat.id, "Переведите %i рублей на счет %s c комментарием %s" % (price, qiwi_acc, comment))
@@ -110,7 +111,6 @@ def command_pay(message):
             bot.send_message(message.chat.id, 'Платеж получен')
             break
         sleep(1)
-
 
 
 @bot.message_handler(content_types=['succesful_payment'])
@@ -125,8 +125,6 @@ def start(name, value, url, games, pages, photo):
     return 'Номер лота:' + name + ' ' + 'Стоимость предметов на первой странице:' + value + 'руб. ' \
            + 'Ссылка на аккаунт:' + url + ' ' + 'Игры на аккаунте:' + games + ' ' + 'Страниц инвентаря:' + pages \
            + photo
-
-
 
 
 def add_lot(message):
@@ -191,9 +189,6 @@ def send_anytext(message):
     elif message.text == 'krism zero' and ok == 1:
         worth = 0
         bot.send_message(chat_id, 'Completed', reply_markup=keyboard())
-
-
-
 
 
 def isint(s):
