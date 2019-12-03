@@ -59,7 +59,7 @@ class QApi(object):
     def check(self, comment):
         if comment not in self._inv:
             return False
-        return inv[comment]['succes']
+        return self._inv[comment]['succes']
 
     def _async_loop(self, target):
         lock = threading.Lock()
