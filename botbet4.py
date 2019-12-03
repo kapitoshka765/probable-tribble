@@ -47,7 +47,7 @@ class QApi(object):
         data = response.json()
         return data
 
-    def bill(self, price, comment=uuid64(), currency=643):
+    def bill(self, price, comment=uuid4(), currency=643):
         comment = str(comment)
         self._inv[comment] = {
             'price': price,
