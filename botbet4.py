@@ -4,7 +4,7 @@ import requests
 import json
 import sqlite3
 import threading
-from uuid import uuid64
+from uuid import uuid4
 from telebot import types
 from telebot.types import LabeledPrice, ShippingOption
 
