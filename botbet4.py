@@ -90,7 +90,7 @@ class QApi(object):
     def start(self):
         if not self.thread:
             self.thread = True
-            th = threading.Thread(target=self._async_loop, args=(self._parse_payments,))
+            th = threading.Thread(target=self._async_loop, args=(self.parse_payments,))
             th.start()
 
     def stop(self):
