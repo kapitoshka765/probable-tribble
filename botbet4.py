@@ -102,7 +102,7 @@ def command_pay(message):
     global api_access_token
     global qiwi_acc
     api = QApi(api_access_token=api_access_token, qiwi_acc=qiwi_acc)
-    price = worth
+    price = 1
     comment = api.bill(price)
     bot.send_message(message.chat.id, "Переведите %i рублей на счет %s c комментарием %s" % (price, qiwi_acc, comment))
     api.start()
