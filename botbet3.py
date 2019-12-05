@@ -14,8 +14,9 @@ domain = 'https://drive.google.com/'
 
 def find_urls():
     global all_links
-    page = urllib3.urlopen(url)
-    soup = BeautifulSoup(page)
+    page = urllib3.PoolManager()
+    response = page.request('GET', url)
+    soup = BeautifulSoup(response)
     for i in soup.findAll('a', attrs={'href': re.compile('^http://')}):
         all_links.append(i.get('href'))
     if len(all_links) >= 28:
