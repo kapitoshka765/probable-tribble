@@ -15,7 +15,10 @@ domain = 'https://drive.google.com/'
 
 def find_urls():
     global all_links
-    res = requests.get(url, timeout=30)
+    try:
+        res = requests.get(url, timeout=30)
+    except requests.exceptions.ConnectionError:
+        bot.send_message(message.chat.id, 'error')
     soup = BeautifulSoup(res.text, 'lxml')
     for link in soup.find_all('a', href=True):
         if link['href'][0] == '#':
