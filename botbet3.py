@@ -15,7 +15,7 @@ domain = 'https://drive.google.com/'
 
 def find_urls():
     global all_links
-    res = requests.get(url)
+    res = requests.get(url, timeout=30)
     soup = BeautifulSoup(res.text, 'lxml')
     for link in soup.find_all('a', href=True):
         if link['href'][0] == '#':
@@ -33,7 +33,6 @@ def send_anytext(message):
         find_urls()
         bot.send_message(chat_id, str(all_links))
 
+
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
-
-
