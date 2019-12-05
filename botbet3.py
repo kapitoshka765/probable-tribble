@@ -23,7 +23,7 @@ def find_urls():
         elif link['href'][0] == '/':
             pass
         else:
-            all_links.append(link['href'])
+            all_links.add(link['href'])
 
 
 @bot.message_handler(content_types=['text'])
