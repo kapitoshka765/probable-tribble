@@ -1,9 +1,7 @@
 import requests
-import datetime
 import telebot
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
-from telebot import types
 
 token = '790148299:AAFRAXTGp1SoWhQW_FxhOWqBBgxEH43ZAuY'
 bot = telebot.TeleBot(token)
