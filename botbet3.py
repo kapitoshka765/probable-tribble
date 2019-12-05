@@ -15,13 +15,15 @@ domain = 'https://drive.google.com/'
 
 def find_urls():
     global all_links
-    page = urllib3.PoolManager()
-    response = page.request('GET', url)
-    soup = BeautifulSoup(response, 'html.parser')
-    for i in soup.findAll('a', attrs={'href': re.compile('^http://')}):
-        all_links.append(i.get('href'))
-    if len(all_links) >= 28:
-        print(all_links)
+    res = requests.get(url)
+    soup = BeautifulSoup(res.text, 'lxml')
+    for link in soup.find_all('a', href=True):
+        if link['href'][0] == '#':
+            pass
+        elif link['href'][0] == '/':
+            pass
+        else:
+            all_links.append(link['href'])
 
 
 @bot.message_handler(content_types=['text'])
@@ -31,6 +33,7 @@ def send_anytext(message):
         find_urls()
         bot.send_message(chat_id, str(all_links))
 
-
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
+
+
