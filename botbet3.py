@@ -5,15 +5,15 @@ from urllib.parse import urlparse
 
 token = '790148299:AAFRAXTGp1SoWhQW_FxhOWqBBgxEH43ZAuY'
 bot = telebot.TeleBot(token)
-url = 'http://lyceum-kungur.ru/%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d1%8f-%d0%b2-%d1%80%d0%b0%d1%81%d0%bf%d0%b8%d1%81%d0%b0%d0%bd%d0%b8%d0%b8/'
+url = 'http://lyceum-kungur.ru/%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d1%8f-%d0%b2-' \
+      '%d1%80%d0%b0%d1%81%d0%bf%d0%b8%d1%81%d0%b0%d0%bd%d0%b8%d0%b8/'
 all_links = []
 domain = 'https://drive.google.com/'
 
 
 def find_urls():
     global all_links
-    s = requests.Session()
-    request = s.get(url)
+    request = requests.get(url)
     soup = BeautifulSoup(request.content, 'lxml')
     for i in soup.find_all('a'):
         link = i['href']
