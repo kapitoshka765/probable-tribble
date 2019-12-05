@@ -110,7 +110,7 @@ def command_pay(message):
         if api.check(comment):
             bot.send_message(message.chat.id, 'Платеж получен')
             break
-        sleep(1)
+        sleep(20)
 
 
 @bot.message_handler(content_types=['succesful_payment'])

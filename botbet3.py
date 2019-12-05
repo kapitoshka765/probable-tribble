@@ -1,92 +1,36 @@
 import requests
 import datetime
 import telebot
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 from telebot import types
 
-token = '771996310:AAEK1JCyG00t7XCBDGbzSc9FEPexsd7oiCo'
+token = '790148299:AAFRAXTGp1SoWhQW_FxhOWqBBgxEH43ZAuY'
+bot = telebot.TeleBot(token)
+url = 'http://lyceum-kungur.ru/%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d1%8f-%d0%b2-%d1%80%d0%b0%d1%81%d0%bf%d0%b8%d1%81%d0%b0%d0%bd%d0%b8%d0%b8/'
+all_links = []
+domain = 'https://drive.google.com/'
 
 
-class BotHandler:
-
-    def __init__(self, token):
-        self.token = token
-        self.api_url = "http://api.telegram.org/bot{}/".format(token)
-
-    def get_updates(self, offset=None, timeout=30):
-        method = 'getUpdates'
-        params = {'timeout': timeout, 'offset': offset}
-        resp = requests.get(self.api_url + method, params)
-        result_json = resp.json()['result']
-        return result_json
-
-    def send_message(self, chat_id, text):
-        params = {'chat_id': chat_id, 'text': text}
-        method = 'sendMessage'
-        resp = requests.post(self.api_url + method, params)
-        return resp
-
-    def get_last_update(self):
-        get_result = self.get_updates()
-
-        if len(get_result) > 0:
-            last_update = get_result[-1]
-        else:
-            last_update = None
-
-        return last_update
+def find_urls():
+    global all_links
+    request = requests.get(url)
+    soup = BeautifulSoup(request.content, 'lxml')
+    for i in soup.find_all('a'):
+        link = i['href']
+        if urlparse(link).netloc == domain and link not in all_links:
+            all_links.add(i)
+    if len(all_links) >= 28:
+        all_links = []
 
 
-def keyboard():
-    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-    button1 = types.KeyboardButton('Make minimum bet')
-    markup.add(button1)
-    return markup
-
-
-greet_bot = BotHandler(token)
-greetings = ('hello', 'privet', 'ku', 'qq')
-bet = 'Make minimum bet'
-now = datetime.datetime.now()
-
-
-def main():
-    new_offset = None
-    today = now.day
-    hour = now.hour
-
-    while True:
-        greet_bot.get_updates(new_offset)
-
-        last_update = greet_bot.get_last_update()
-        if not last_update:
-            continue
-
-        last_update_id = last_update['update_id']
-        last_chat_text = last_update['message']['text']
-        last_chat_id = last_update['message']['chat']['id']
-        last_chat_name = last_update['message']['chat']['first_name']
-
-        if last_chat_text.lower() in greetings and today == now.day and 6 <= hour < 12:
-            greet_bot.send_message(last_chat_id, 'Good morning, {}'.format(last_chat_name))
-            today += 1
-            reply_markup = keyboard()
-        elif last_chat_text.lower in greetings and today == now.day and 12 <= hour < 17:
-            greet_bot.send_message(last_chat_id, 'Good day, {}'.format(last_chat_name))
-            today += 1
-            reply_markup = keyboard()
-        elif last_chat_text.lower() in greetings and today == now.day and 17 <= hour < 23:
-            greet_bot.send_message(last_chat_id, 'Good evening, {}'.format(last_chat_name))
-            today += 1
-            reply_markup = keyboard()
-        elif last_chat_text.lower() in bet:
-            greet_bot.send_message(last_chat_id, 'Minimum bet placed, {}'.format(last_chat_name))
-            reply_markup = keyboard()
-
-        new_offset = last_update_id + 1
+@bot.message_handler(content_types=['text'])
+def send_anytext(message):
+    chat_id = message.chat.id
+    if message.text == 'go':
+        find_urls()
+        bot.send_message(chat_id, all_links)
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        exit()
+    bot.polling(none_stop=True, interval=0, timeout=20)
