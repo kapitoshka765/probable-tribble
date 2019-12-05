@@ -12,7 +12,8 @@ domain = 'https://drive.google.com/'
 
 def find_urls():
     global all_links
-    request = requests.get(url)
+    s = requests.Session()
+    request = s.get(url)
     soup = BeautifulSoup(request.content, 'lxml')
     for i in soup.find_all('a'):
         link = i['href']
