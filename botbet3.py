@@ -1,5 +1,6 @@
 import requests
 import telebot
+import urllib3
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
@@ -13,12 +14,10 @@ domain = 'https://drive.google.com/'
 
 def find_urls():
     global all_links
-    request = requests.get(url)
-    soup = BeautifulSoup(request.content, 'lxml')
-    for i in soup.find_all('a'):
-        link = i['href']
-        if urlparse(link).netloc == domain and link not in all_links:
-            all_links.add(i)
+    page = urllib3.urlopen(url)
+    soup = BeautifulSoup(page)
+    for i in soup.findAll('a', attrs={'href': re.compile('^http://')}):
+        all_links.append(i.get('href'))
     if len(all_links) >= 28:
         all_links = []
 
