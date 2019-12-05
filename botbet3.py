@@ -19,13 +19,8 @@ def find_urls(message):
         res = requests.get(url, timeout=30)
         soup = BeautifulSoup(res.text, 'lxml')
         for link in soup.find_all('a', href=True):
-            if link['href'][0] == '#':
-                pass
-            elif link['href'][0] == '/':
-                pass
-            else:
-                all_links.add(link['href'])
-                bot.send.message(message.chat.id, '1done')
+            all_links.add(link['href'])
+            bot.send.message(message.chat.id, '1done')
     except requests.exceptions.ConnectionError:
         bot.send_message(message.chat.id, 'error')
 
