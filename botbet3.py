@@ -21,7 +21,7 @@ def find_urls():
     for i in soup.findAll('a', attrs={'href': re.compile('^http://')}):
         all_links.append(i.get('href'))
     if len(all_links) >= 28:
-        all_links = []
+        print(all_links)
 
 
 @bot.message_handler(content_types=['text'])
@@ -29,7 +29,7 @@ def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
         find_urls()
-        bot.send_message(chat_id, all_links)
+        bot.send_message(chat_id, str(all_links))
 
 
 if __name__ == '__main__':
