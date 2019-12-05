@@ -13,7 +13,7 @@ all_links = []
 domain = 'https://drive.google.com/'
 
 
-def find_urls():
+def find_urls(message):
     global all_links
     try:
         res = requests.get(url, timeout=30)
@@ -33,7 +33,7 @@ def find_urls():
 def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
-        find_urls()
+        find_urls(message)
         bot.send_message(chat_id, str(all_links))
 
 
