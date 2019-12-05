@@ -17,16 +17,17 @@ def find_urls(message):
     global all_links
     try:
         res = requests.get(url, timeout=30)
+        soup = BeautifulSoup(res.text, 'lxml')
+        for link in soup.find_all('a', href=True):
+            if link['href'][0] == '#':
+                pass
+            elif link['href'][0] == '/':
+                pass
+            else:
+                all_links.add(link['href'])
     except requests.exceptions.ConnectionError:
         bot.send_message(message.chat.id, 'error')
-    soup = BeautifulSoup(res.text, 'lxml')
-    for link in soup.find_all('a', href=True):
-        if link['href'][0] == '#':
-            pass
-        elif link['href'][0] == '/':
-            pass
-        else:
-            all_links.add(link['href'])
+
 
 
 @bot.message_handler(content_types=['text'])
