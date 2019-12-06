@@ -35,7 +35,7 @@ def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
         bs = BeautifulSoup(find_urls(), 'lxml')
-        links = bs.find('div,'{'class' : 'BlockContent-body'}).findAll('a')
+        links = bs.find('div', {'class' : 'BlockContent-body'}).findAll('a')
         for link in links:
             bot.send.message(chat_id, link)
 
