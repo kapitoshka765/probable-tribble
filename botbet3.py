@@ -1,6 +1,6 @@
 import requests
 import telebot
-import urllib2
+import urllib.request
 import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
