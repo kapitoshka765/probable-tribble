@@ -20,11 +20,11 @@ def find(message):
     html = session.get(url)
     bs = BeautifulSoup(html.text, 'lxml')
     link_list = bs.find('div', {'class': 'content-list'})
-    bot.send.message(message.chat.id, link_list)
+    bot.send_message(message.chat.id, link_list)
     items = link_list.find_all('a')
     for item in items:
         link = item.get('href')
-        bot.send.message(message.chat.id, str(link))
+        bot.send_message(message.chat.id, str(link))
 
 def find_urls():
     global all_links
