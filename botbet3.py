@@ -14,9 +14,9 @@ s = requests.Session()
 
 
 
-def find(message):
-    html = urlopen(url)
-    bs = BeautifulSoup(html, 'lxml')
+def find():
+    html = requests.get(url)
+    bs = BeautifulSoup(html.text, 'lxml')
     links = bs.find('div', {'class': 'BlockContent-body'}).findAll('a')
     for link in links():
         all_links.append(link)
@@ -25,7 +25,6 @@ def find(message):
 def find_urls():
     global all_links
     response = requests.get(url)
-    response.status_code
     return response.text
 
 
@@ -33,7 +32,7 @@ def find_urls():
 def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
-        find(message)
+        find()
         bot.send.message(chat_id, str(all_links))
 
 if __name__ == '__main__':
