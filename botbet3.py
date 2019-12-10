@@ -19,7 +19,7 @@ def find(message):
     session = HTMLSession()
     html = session.get(url)
     bs = BeautifulSoup(html.text, 'lxml')
-    links = bs.find('div', {'class': 'content-list'}).find('a').get('href')
+    links = bs.find('div', {'class': 'content-list'})
     for i in links():
         i = i.find('a')
         for x in i():
