@@ -3,6 +3,7 @@ import telebot
 import urllib.request
 import re
 import docx
+from io import BytesIO
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from requests_html import HTMLSession
