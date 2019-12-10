@@ -25,7 +25,7 @@ def find(message):
     items = link_list.find_all('a')
     for item in items:
         link = item.get('href')
-        bot.send_message(message.chat.id, str(link))
+        all_links.append(link)
 
 def find_urls():
     global all_links
@@ -38,6 +38,7 @@ def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
         find(message)
+        bot.send_message(chat_id, all_links)
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
