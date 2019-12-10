@@ -38,7 +38,7 @@ def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
         find(message)
-        bot.send_message(chat_id, all_links)
+        bot.send_message(chat_id, len(all_links))
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
