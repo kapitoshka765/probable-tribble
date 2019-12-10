@@ -18,7 +18,7 @@ s = requests.Session()
 def find(message):
     session = HTMLSession()
     html = session.get(url)
-    bs = BeautifulSoup(html, 'lxml')
+    bs = BeautifulSoup(html.text, 'lxml')
     link_list = bs.find('div', {'class': 'default-block__content'})
     bot.send_message(message.chat.id, link_list)
     items = link_list.find_all('a')
