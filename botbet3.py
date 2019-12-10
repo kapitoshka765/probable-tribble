@@ -17,7 +17,7 @@ s = requests.Session()
 def find():
     html = requests.get(url)
     bs = BeautifulSoup(html.text, 'lxml')
-    links = bs.find('div', {'class': 'BlockContent-body'}).findAll('a')
+    links = bs.find('div', {'class': 'content-list'}).findAll('a')
     for link in links():
         all_links.append(link)
 
