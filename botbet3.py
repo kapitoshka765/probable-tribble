@@ -45,7 +45,7 @@ def send_anytext(message):
         bot.send_message(chat_id, 'выберите число от 0 до' + ' ' + str(len(all_links)-2))
     if isint(message.text):
         global aa
-        aa = message.text + 1
+        aa = int(message.text) + 1
         bot.send_message(chat_id, str(all_links[aa]))
 
 def isint(s):
