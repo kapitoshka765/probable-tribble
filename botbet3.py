@@ -15,6 +15,7 @@ url = 'http://lyceum-kungur.ru/%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%
 all_links = []
 domain = 'https://drive.google.com/'
 s = requests.Session()
+aa = 0
 
 
 
@@ -41,16 +42,19 @@ def send_anytext(message):
     if message.text == 'go':
         info = []
         find(message)
-        for a in range(1, len(all_links)):
-            if a == len(all_links):
-                break
-            b = all_links[a]
-            docx1 = BytesIO(requests.get(b).content)
-            text = docx.Document(docx1)
-            table_size = len(text.tables[1].rows)
-            for i in range(table_size):
-                info.append(text.tables[1].rows[i].cells[1].text)
-        bot.send_message(chat_id, info)
+        bot.send_message(chat_id, 'выберите число от 0 до' + str(len(all_links)-2))
+    if isint(message.text):
+        global aa
+        aa = message.text
+        bot.send_message(chat_id, all_links[aa+1])
+
+def isint(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
