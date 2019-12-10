@@ -2,6 +2,7 @@ import requests
 import telebot
 import urllib.request
 import re
+import docx
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from requests_html import HTMLSession
@@ -37,8 +38,18 @@ def find_urls():
 def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
+        info = []
         find(message)
-        bot.send_message(chat_id, len(all_links))
+        for a in range(1, len(all_links)):
+            if a == len(all_links):
+                break
+            b = all_links[a]
+            docx1 = BytesIO(requests.get(b).content)
+            text = docx.Document(docx1)
+            table_size = len(text.tables[1].rows)
+            for i in range(table_size):
+                info.append(text.tables[1].rows[i].cells[1].text)
+        bot.send_message(chat_id, info)
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
