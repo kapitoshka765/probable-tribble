@@ -4,6 +4,7 @@ import urllib.request
 import re
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+from requests_html import HTMLSession
 
 token = '790148299:AAFRAXTGp1SoWhQW_FxhOWqBBgxEH43ZAuY'
 bot = telebot.TeleBot(token)
@@ -15,7 +16,8 @@ s = requests.Session()
 
 
 def find():
-    html = requests.get(url)
+    session = HTMLSession()
+    html = session.get(url)
     bs = BeautifulSoup(html.text, 'lxml')
     links = bs.find('div', {'class': 'content-list'}).find('a').get('href')
     for link in links():
