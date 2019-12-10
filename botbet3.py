@@ -42,11 +42,11 @@ def send_anytext(message):
     if message.text == 'go':
         info = []
         find(message)
-        bot.send_message(chat_id, 'выберите число от 0 до' + str(len(all_links)-2))
+        bot.send_message(chat_id, 'выберите число от 0 до' + ' ' + str(len(all_links)-2))
     if isint(message.text):
         global aa
         aa = message.text
-        bot.send_message(chat_id, all_links[aa+1])
+        bot.send_message(chat_id, str(all_links[aa+1]))
 
 def isint(s):
     try:
