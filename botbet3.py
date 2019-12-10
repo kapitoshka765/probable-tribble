@@ -20,7 +20,7 @@ def find(message):
     session = HTMLSession()
     html = session.get(url)
     bs = BeautifulSoup(html.text)
-    link_list = bs.find('div', {'class': 'BlockContent'})
+    link_list = bs.find('div', {'class': 'entry'})
     print(link_list)
     items = link_list.find_all('a')
     for item in items:
