@@ -15,13 +15,16 @@ s = requests.Session()
 
 
 
-def find():
+def find(message):
     session = HTMLSession()
     html = session.get(url)
     bs = BeautifulSoup(html.text, 'lxml')
     links = bs.find('div', {'class': 'content-list'}).find('a').get('href')
-    for link in links():
-        all_links.append(link)
+    for i in links():
+        i = i.find('a')
+        for x in i():
+            x = x.get('href')
+            bot.send.message(message.chat.id, str(x))
 
 
 def find_urls():
@@ -34,8 +37,7 @@ def find_urls():
 def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
-        find()
-        bot.send.message(chat_id, str(all_links))
+        find(message)
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
