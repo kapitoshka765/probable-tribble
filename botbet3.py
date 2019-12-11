@@ -48,9 +48,8 @@ def send_anytext(message):
         find(message)
         bot.send_message(chat_id, '-', reply_markup=keyboard())
     if message.text in all_text:
-        try:
-            aa = all_text.index(message)
-            bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
+        aa = all_text.index(message)
+        bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
 
 
 def starting():
