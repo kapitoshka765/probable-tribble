@@ -17,7 +17,6 @@ all_links = []
 all_text = []
 domain = 'https://drive.google.com/'
 s = requests.Session()
-aa = 0
 
 
 
@@ -46,12 +45,12 @@ def find_urls():
 def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'go':
-        info = []
         find(message)
-        bot.send_message(chat_id, '', reply_markup=keyboard())
+        bot.send_message(chat_id, '-', reply_markup=keyboard())
     if message.text in all_text:
         aa = all_text.find(message)
         bot.send_message(chat_id, str(all_links[aa]))
+
 
 def isint(s):
     try:
@@ -64,7 +63,7 @@ def isint(s):
 def keyboard():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=3)
     for opa in range(len(all_text)):
-        markup.row(types.KeyboardButton(all_text[opa]))
+        markup.row(types.KeyboardButton(str(all_text[opa])))
     return markup
 
 
