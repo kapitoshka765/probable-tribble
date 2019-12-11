@@ -53,14 +53,6 @@ def send_anytext(message):
             bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
 
 
-def isint(s):
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
-
-
 def starting():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
     button = types.KeyboardButton('Узнать расписание')
