@@ -48,8 +48,9 @@ def send_anytext(message):
         find(message)
         bot.send_message(chat_id, '-', reply_markup=keyboard())
     if message.text in all_text:
-        aa = all_text.find(message)
-        bot.send_message(chat_id, str(all_links[aa]))
+        try:
+            aa = all_text.index(message)
+            bot.send_message(chat_id, str(all_links[aa]))
 
 
 def isint(s):
