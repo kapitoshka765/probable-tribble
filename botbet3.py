@@ -13,6 +13,7 @@ bot = telebot.TeleBot(token)
 url = 'http://lyceum-kungur.ru/%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%d1%8f-%d0%b2-%d1%80%d0%b0%d1%81%' \
       'd0%bf%d0%b8%d1%81%d0%b0%d0%bd%d0%b8%d0%b8/'
 all_links = []
+all_text = []
 domain = 'https://drive.google.com/'
 s = requests.Session()
 aa = 0
@@ -28,7 +29,11 @@ def find(message):
     items = link_list.find_all('a')
     for item in items:
         link = item.get('href')
-        all_links.append(link)
+        text = item.get_text
+        if link not in all_links:
+            all_links.append(link)
+        if text not in all_text:
+            all_text.append(text)
 
 def find_urls():
     global all_links
@@ -42,10 +47,10 @@ def send_anytext(message):
     if message.text == 'go':
         info = []
         find(message)
-        bot.send_message(chat_id, 'выберите число от 1 до' + ' ' + str(len(all_links)-2))
-    if isint(message.text):
-        global aa
-        aa = int(message.text)
+        keyboard()
+        bot.send_message(chat_id, '', reply_markup=keyboard())
+    if message.text in all_text:
+        aa = all_text.find(message)
         bot.send_message(chat_id, str(all_links[aa]))
 
 def isint(s):
@@ -54,6 +59,13 @@ def isint(s):
         return True
     except ValueError:
         return False
+
+
+def keyboard():
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=3)
+    for opa in range(len(all_text)):
+        markup.row(types.KeyboardButton(all_text[opa]))
+    return markup
 
 
 if __name__ == '__main__':
