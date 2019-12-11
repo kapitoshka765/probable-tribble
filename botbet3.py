@@ -29,7 +29,7 @@ def find(message):
     items = link_list.find_all('a')
     for item in items:
         link = item.get('href')
-        text = item.get_text
+        text = item.text
         if link not in all_links:
             all_links.append(link)
         if text not in all_text:
