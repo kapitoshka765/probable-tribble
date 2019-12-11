@@ -46,7 +46,7 @@ def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'Узнать расписание':
         find(message)
-        bot.send_message(chat_id, str(all_text), reply_markup=keyboard())
+        bot.send_message(chat_id, 'Выберите нужный день', reply_markup=keyboard())
     if message.text in all_text:
         a = message.text
         aa = all_text.index(a)
