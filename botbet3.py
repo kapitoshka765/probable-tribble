@@ -51,7 +51,7 @@ def send_anytext(message):
         a = message.text
         aa = all_text.index(a)
         bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
-    else:
+    elif message.text != 'Узнать расписание' or message.text not in all_text:
         bot.send_message(chat_id, 'Введите - Узнать расписание')
 
 
