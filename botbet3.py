@@ -44,13 +44,13 @@ def find_urls():
 @bot.message_handler(content_types=['text'])
 def send_anytext(message):
     chat_id = message.chat.id
-    if message.text == 'go':
+    if message.text == 'Узнать расписание':
         find(message)
         bot.send_message(chat_id, '-', reply_markup=keyboard())
     if message.text in all_text:
         try:
             aa = all_text.index(message)
-            bot.send_message(chat_id, str(all_links[aa]))
+            bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
 
 
 def isint(s):
@@ -59,6 +59,12 @@ def isint(s):
         return True
     except ValueError:
         return False
+
+
+def starting():
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
+    button = types.KeyboardButton('Узнать расписание')
+    markup.row(button)
 
 
 def keyboard():
