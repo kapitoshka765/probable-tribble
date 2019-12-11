@@ -48,7 +48,6 @@ def send_anytext(message):
     if message.text == 'go':
         info = []
         find(message)
-        keyboard()
         bot.send_message(chat_id, '', reply_markup=keyboard())
     if message.text in all_text:
         aa = all_text.find(message)
