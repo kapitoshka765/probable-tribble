@@ -44,7 +44,7 @@ def find():
 def send_anytext(message):
     chat_id = message.chat.id
     if message.text == 'Узнать расписание':
-        find(message)
+        find()
         bot.send_message(chat_id, 'Выберите нужный день', reply_markup=keyboard())
     if message.text in all_text:
         a = message.text
