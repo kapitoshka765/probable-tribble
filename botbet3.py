@@ -19,14 +19,18 @@ domain = 'https://drive.google.com/'
 s = requests.Session()
 
 
-
-def find(message):
+def find():
+    global all_links
+    global all_text
     session = HTMLSession()
     html = session.get(url)
     bs = BeautifulSoup(html.text)
     link_list = bs.find('div', {'class': 'entry'})
     print(link_list)
     items = link_list.find_all('a')
+    if len(all_links) > len(all_text):
+        all_links = []
+        all_text = []
     for item in items:
         link = item.get('href')
         text = item.text
@@ -34,11 +38,6 @@ def find(message):
             all_links.append(link)
         if text not in all_text:
             all_text.append(text)
-
-def find_urls():
-    global all_links
-    response = requests.get(url)
-    return response.text
 
 
 @bot.message_handler(content_types=['text'])
@@ -59,6 +58,7 @@ def starting():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
     button = types.KeyboardButton('Узнать расписание')
     markup.row(button)
+    return markup
 
 
 def keyboard():
