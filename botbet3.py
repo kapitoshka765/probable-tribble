@@ -28,7 +28,7 @@ def find():
     link_list = bs.find('div', {'class': 'entry'})
     print(link_list)
     items = link_list.find_all('a')
-    if len(all_links) > len(all_text):
+    if len(all_links) > len(all_text) or len(all_text) > len(all_links):
         all_links = []
         all_text = []
     for item in items:
