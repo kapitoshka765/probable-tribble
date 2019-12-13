@@ -43,28 +43,40 @@ def find():
 @bot.message_handler(content_types=['text'])
 def send_anytext(message):
     chat_id = message.chat.id
-    if message.text == 'Узнать':
+    if message.text == 'Расписание':
         find()
-        bot.send_message(chat_id, 'Выберите нужный день', reply_markup=keyboard())
+        bot.send_message(chat_id, 'Выберите нужный день', reply_markup=days())
+    if message.text == 'Другое':
+        find()
+        bot.send_message(chat_id, 'Выберите нужный день', reply_markup=another())
     if message.text in all_text:
         a = message.text
         aa = all_text.index(a)
         bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
-    elif message.text != 'Узнать' and message.text not in all_text:
-        bot.send_message(chat_id, 'Введите -- Узнать')
+    elif message.text != 'Расписание' and message.text not in all_text:
+        bot.send_message(chat_id, 'Введите -- Расписание')
 
 
 def starting():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
-    button = types.KeyboardButton('Узнать')
+    button = types.KeyboardButton('Расписание')
     markup.row(button)
     return markup
 
 
-def keyboard():
-    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=3)
+def days():
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
     for opa in range(len(all_text)):
-        markup.row(types.KeyboardButton(str(all_text[opa])))
+        if 'декабря (' in str(all_text[opa]):
+            markup.row(types.KeyboardButton(str(all_text[opa])))
+    return markup
+
+
+def another():
+    markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
+    for opa in range(len(all_text)):
+        if 'декабря (' not in str(all_text[opa]):
+            markup.row(types.KeyboardButton(str(all_text[opa])))
     return markup
 
 
