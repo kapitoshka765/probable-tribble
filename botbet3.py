@@ -48,7 +48,7 @@ def send_anytext(message):
         bot.send_message(chat_id, 'Выберите нужный день', reply_markup=days())
     if message.text == 'Другое':
         find()
-        bot.send_message(chat_id, 'Выберите нужный день', reply_markup=another())
+        bot.send_message(chat_id, 'Выберите нужный пункт', reply_markup=another())
     if message.text in all_text:
         a = message.text
         aa = all_text.index(a)
@@ -60,7 +60,8 @@ def send_anytext(message):
 def starting():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
     button = types.KeyboardButton('Расписание')
-    markup.row(button)
+    button1 = types.KeyboardButton('Другое')
+    markup.row(button, button1)
     return markup
 
 
