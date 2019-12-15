@@ -54,7 +54,7 @@ def send_anytext(message):
         aa = all_text.index(a)
         bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
     elif message.text != 'Расписание' and message.text not in all_text and message.text != 'Другое':
-        bot.send_message(chat_id, 'Такой команды не существует, выберите одну, нажав на 4-точки', reply_markup=starting())
+        bot.send_message(chat_id, 'Такой команды не существует, выберите одну, нажав на 4 точки', reply_markup=starting())
 
 
 def starting():
