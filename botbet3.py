@@ -49,12 +49,15 @@ def send_anytext(message):
     if message.text == 'Другое':
         find()
         bot.send_message(chat_id, 'Выберите нужный пункт', reply_markup=another())
+    if message.text == 'Начать':
+        bot.send_message(chat_id, 'Спасибо что пользуетесь нашим ботом', reply_markup=starting())
     if message.text in all_text:
         a = message.text
         aa = all_text.index(a)
         bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
-    elif message.text != 'Расписание' and message.text not in all_text and message.text != 'Другое':
-        bot.send_message(chat_id, 'Введите -- Расписание')
+    elif message.text != 'Расписание' and message.text not in all_text and message.text != 'Другое' and message.text \
+            != 'Начать':
+        bot.send_message(chat_id, 'Такой команды не существует, введите -- Начать')
 
 
 def starting():
