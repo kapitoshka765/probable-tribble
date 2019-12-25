@@ -43,7 +43,7 @@ def find():
             bs = BeautifulSoup(html.text)
             first = bs.find('section', {'class': 'Grid-container'})
             print(first)
-            second = link_list.find_all('a')
+            second = first.find_all('a')
             for item in second:
                 link = item.get('href')
                 if day in str(link):
