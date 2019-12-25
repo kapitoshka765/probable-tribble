@@ -41,10 +41,9 @@ def find():
         if url == 'https://meduza.io/':
             html = session.get(url)
             bs = BeautifulSoup(html.text)
-            first = bs.find('section', {'class': 'Grid-container'})
+            first = bs.find('section', {'class': 'Grid-container'}).find_all('a')
             print(first)
-            second = first.find_all('a')
-            for item in second:
+            for item in first:
                 link = item.get('href')
                 if day in str(link):
                     text = item.text
