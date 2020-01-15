@@ -15,6 +15,7 @@ url = 'http://lyceum-kungur.ru/%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%
       'd0%bf%d0%b8%d1%81%d0%b0%d0%bd%d0%b8%d0%b8/'
 all_links = []
 all_text = []
+all_ids =[]
 domain = 'https://drive.google.com/'
 s = requests.Session()
 
@@ -43,6 +44,8 @@ def find():
 @bot.message_handler(content_types=['text'])
 def send_anytext(message):
     chat_id = message.chat.id
+    if chat_id not in all_ids:
+        all_ids.append(chat_id)
     if message.text == 'Расписание':
         find()
         bot.send_message(chat_id, 'Выберите нужный день', reply_markup=days())
@@ -53,6 +56,8 @@ def send_anytext(message):
         a = message.text
         aa = all_text.index(a)
         bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
+    if message.text == 'krism id':
+        bot.send_message(chat_id, len(all_ids), reply_markup=starting())
     elif message.text != 'Расписание' and message.text not in all_text and message.text != 'Другое':
         bot.send_message(chat_id, 'Такой команды не существует, выберите одну, нажав на 4 точки', reply_markup=starting())
 
