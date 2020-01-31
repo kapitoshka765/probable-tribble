@@ -58,6 +58,9 @@ def send_anytext(message):
         bot.send_message(chat_id, str(all_links[aa]), reply_markup=starting())
     if message.text == 'krism id':
         bot.send_message(chat_id, len(all_ids), reply_markup=starting())
+    if message.text == 'krism send':
+        for i in all_ids:
+            bot.send_message(i, message.text, reply_markup=starting())
     elif message.text != 'Расписание' and message.text not in all_text and message.text != 'Другое':
         bot.send_message(chat_id, 'Такой команды не существует, выберите одну, нажав на 4 точки', reply_markup=starting())
 
@@ -73,7 +76,7 @@ def starting():
 def days():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
     for opa in range(len(all_text)):
-        if 'января (' in str(all_text[opa]):
+        if 'января (' in str(all_text[opa]) or 'февраля (' in str(all_text[opa]):
             markup.row(types.KeyboardButton(str(all_text[opa])))
     return markup
 
