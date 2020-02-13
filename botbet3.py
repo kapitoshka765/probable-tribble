@@ -77,17 +77,15 @@ def starting():
 def days():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
     for opa in range(len(all_text)):
-        for i in range(len(all_days)):
-            if all_days[i] in str(all_text[opa]):
-                markup.row(types.KeyboardButton(str(all_text[opa]))
+         if 'февраля (' in str(all_text[opa]) or 'февраля  (' in str(all_text[opa]):
+             markup.row(types.KeyboardButton(str(all_text[opa]))
     return markup
 
 
 def another():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
     for opa in range(len(all_text)):
-        for i in range(len(all_days)):
-            if all_days[i] not in str(all_text[opa]):
+        if 'февраля (' not in str(all_text[opa]) or 'февраля  (' not in str(all_text[opa]):
                 markup.row(types.KeyboardButton(str(all_text[opa])))
     return markup
 
