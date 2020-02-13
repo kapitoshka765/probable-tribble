@@ -77,8 +77,9 @@ def starting():
 def days():
     markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True, row_width=1)
     for opa in range(len(all_text)):
-        if 'января (' in str(all_text[opa]) or 'февраля (' in str(all_text[opa]):
-            markup.row(types.KeyboardButton(str(all_text[opa])))
+        for i in range(len(all_days)):
+            if all_days[i] in str(all_text[opa]):
+                markup.row(types.KeyboardButton(str(all_text[opa]))
     return markup
 
 
@@ -90,6 +91,8 @@ def another():
                 markup.row(types.KeyboardButton(str(all_text[opa])))
     return markup
 
+
+)
 
 if __name__ == '__main__':
     bot.polling(none_stop=True, interval=0, timeout=20)
