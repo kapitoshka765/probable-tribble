@@ -62,7 +62,7 @@ def send_anytext(message):
     if message.text == 'krism send':
         for i in all_ids:
             bot.send_message(i, message.text, reply_markup=starting())
-    elif message.text not in all_days and message.text != 'Расписание' and message.text != 'Другое':
+    elif all_days.count(message.text) and message.text != 'Расписание' and message.text != 'Другое':
         bot.send_message(chat_id, 'Такой команды не существует, выберите одну, нажав на 4 точки', reply_markup=starting())
 
 
