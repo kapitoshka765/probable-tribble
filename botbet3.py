@@ -16,6 +16,7 @@ url = 'http://lyceum-kungur.ru/%d0%b8%d0%b7%d0%bc%d0%b5%d0%bd%d0%b5%d0%bd%d0%b8%
 all_links = []
 all_text = []
 all_ids =[]
+all_days = ['понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'cуббота']
 domain = 'https://drive.google.com/'
 s = requests.Session()
 
@@ -61,7 +62,7 @@ def send_anytext(message):
     if message.text == 'krism send':
         for i in all_ids:
             bot.send_message(i, message.text, reply_markup=starting())
-    elif message.text != 'Расписание' and message.text not in all_text and message.text != 'Другое':
+    elif message.text not in all_days and message.text != 'Расписание' and message.text != 'Другое':
         bot.send_message(chat_id, 'Такой команды не существует, выберите одну, нажав на 4 точки', reply_markup=starting())
 
 
