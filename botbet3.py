@@ -35,17 +35,17 @@ def send_anytext(message):
         ubrat()
         start.append(chat_id)
         bot.send_message(chat_id, 'Введите своё имя и фамилию')
-    if message.text != 'Записаться' and chat_id in start:
+    elif chat_id in start:
         name1 = message.text
         start = []
         telephon.append(chat_id)
         bot.send_message(chat_id, 'Введите свой телефон')
-    if message.text != 'Записаться' and chat_id in telephon:
+    elif chat_id in telephon:
         telephon1 = message.text
         telephon = []
         other.append(chat_id)
         bot.send_message(chat_id, 'Введите причину обращения')
-    if message.text != 'Записаться' and chat_id in other:
+    elif chat_id in other:
         other1 = message.text
         bot.send_message(nuzno, 'Запись от ' + name1 + 'с телефоном ' + telephon1 + 'по причине ' + other1)
         ubrat()
