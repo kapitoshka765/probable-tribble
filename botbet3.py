@@ -10,7 +10,7 @@ from requests_html import HTMLSession
 from telebot import types
 
 token = '705618645:AAHMT7Pn1qTnvnajzvGEeCuLO5fmSTGQa8M'
-nuzno = '603577729'
+nuzno = '45563195'
 bot = telebot.TeleBot(token)
 name1 = ''
 telephon1 = ''
@@ -47,7 +47,7 @@ def send_anytext(message):
         bot.send_message(chat_id, 'Введите причину обращения')
     elif chat_id in other:
         other1 = message.text
-        bot.send_message(nuzno, 'Запись от ' + name1 + 'с телефоном ' + telephon1 + 'по причине ' + other1)
+        bot.send_message(nuzno, 'Запись от ' + name1 + ' с телефоном ' + telephon1 + ' по причине ' + other1)
         ubrat()
         bot.send_message(chat_id, 'Спасибо за обращение, ожидайте звонка')
     else:
