@@ -34,24 +34,24 @@ def send_anytext(message):
     if message.text == 'Записаться':
         ubrat()
         start.append(chat_id)
-        bot.send_message(chat_id, 'Введите своё имя и фамилию')
+        bot.send_message(chat_id, 'Пожалуйста, введите Ваше имя и фамилию')
     elif chat_id in start:
         name1 = message.text
         start = []
         telephon.append(chat_id)
-        bot.send_message(chat_id, 'Введите свой телефон')
+        bot.send_message(chat_id, 'Пожалуйста, введите Ваш номер телефона, по которому мы сможем с Вами связаться')
     elif chat_id in telephon:
         telephon1 = message.text
         telephon = []
         other.append(chat_id)
-        bot.send_message(chat_id, 'Введите причину обращения')
+        bot.send_message(chat_id, 'А теперь, введите причину обращения в Amcar Service')
     elif chat_id in other:
         other1 = message.text
         bot.send_message(nuzno, 'Запись от ' + name1 + ' с телефоном ' + telephon1 + ' по причине ' + other1)
         ubrat()
-        bot.send_message(chat_id, 'Спасибо за обращение, ожидайте звонка')
+        bot.send_message(chat_id, 'Спасибо за Вашш обращение, ожидайте звонка от Amcar Service')
     else:
-        bot.send_message(chat_id, 'Нажмите на кнопку', reply_markup=starting())
+        bot.send_message(chat_id, 'Такой команды не существует. Пожалуйста, нажмите на доступную команду в меню рядом с вашей клавиатурой', reply_markup=starting())
 
 
 def ubrat():
